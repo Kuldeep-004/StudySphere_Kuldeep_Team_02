@@ -34,7 +34,7 @@ import Project from "./pages/Project";
 import ChatBoot from "./pages/ChatBot";
 import Chatbot from "./components/Chatbot";
 
-function App() {
+function App() { 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,7 +47,8 @@ function App() {
     
     <Navbar/>
     <Routes>
-      <Route path="catalog/:catalogName" element={<Catalog/>} />
+      <Route path="/" element={<Home/>} />
+      <Route path="/catalog/:catalogName" element={<Catalog/>} />
       <Route path="Simulations/:Simulations" element={<Simulations/>} />
       <Route path="courses/:courseId" element={<CourseDetails/>} />
       <Route path="/admin" element={<Admin/>} />
@@ -163,6 +164,7 @@ function App() {
 
       
     </Routes>
+    <Chatbot/>
    </div> 
   );
 }

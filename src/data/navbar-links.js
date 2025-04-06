@@ -5,13 +5,20 @@ export const NavbarLinks = [
   },
   {
     title: "Catalog",
-    // path: '/catalog',
+    path: '/catalog',
   },
   {
     title: "Simulations",
     path:"/simulations",
   },
-  
+  {
+    title: "Blogs",
+    path: "/blog",
+  },
+  {
+    title: "Chatbot",
+    path: "/chatbot",
+  },
   {
     title: "Contact Us",
     path: "/contact",

@@ -175,6 +175,20 @@ const Blog = () => {
                         Latest posts
                     </motion.h2>
                     
+                    <div className="flex justify-between items-center mb-8">
+                        <motion.button
+                            onClick={handleCreateClick}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-gradient-to-r from-blue-500 to-blue-400 text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                            </svg>
+                            Create Blog
+                        </motion.button>
+                    </div>
+                    
                     <div className="flex flex-col gap-8">
                         {/* First Latest Post */}
                         {blog[1] && (
@@ -279,12 +293,12 @@ const Blog = () => {
                                     <div className="flex items-center gap-3 text-sm text-gray-400">
                                         <span className="group-hover:text-gray-300 transition-colors">{new Date(item.createdAt).toLocaleDateString()}</span>
                                         <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-                                        <span className="text-blue-400 group-hover:text-blue-300 transition-colors">Read more</span>
-                            </div>
-                        </div>
+                                        <span className="text-blue-400 group-hover:text-blue-300 transition-colors cursor-pointer">Read more</span>
+                                    </div>
+                                </div>
                             </motion.div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
                 </motion.div>
             </div>
 
@@ -303,7 +317,7 @@ const Blog = () => {
             </motion.button>
 
             {/* Modal with enhanced animations */}
-            {isModalOpen && user && (
+            {isModalOpen && (
                 <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -348,31 +362,31 @@ const Blog = () => {
                                 <form className="flex flex-col gap-4 w-full mt-6" onSubmit={handleSubmit}>
                                     <div>
                                         <label className="block text-sm font-medium mb-2 hover:text-blue-400 transition-colors">Blog Title</label>
-                                    <input
-                                        type="text"
+                                        <input
+                                            type="text"
                                             placeholder="Enter blog title"
-                                        value={blogName}
-                                        onChange={(e) => setBlogName(e.target.value)}
+                                            value={blogName}
+                                            onChange={(e) => setBlogName(e.target.value)}
                                             className="w-full px-4 py-2 rounded-lg bg-white border border-gray-700 focus:border-blue-500 focus:outline-none hover:border-gray-600 transition-colors text-black"
                                             required
-                                    />
+                                        />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-2 hover:text-blue-400 transition-colors">Blog Description</label>
-                                    <textarea
+                                        <textarea
                                             placeholder="Enter blog description"
-                                        value={blogDescription}
-                                        onChange={(e) => setBlogDescription(e.target.value)}
+                                            value={blogDescription}
+                                            onChange={(e) => setBlogDescription(e.target.value)}
                                             className="w-full px-4 py-2 rounded-lg bg-white border border-gray-700 focus:border-blue-500 focus:outline-none hover:border-gray-600 transition-colors h-32 text-black"
                                             required
-                                    />
+                                        />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-2 hover:text-blue-400 transition-colors">Blog Thumbnail</label>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleThumbnailChange}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleThumbnailChange}
                                             className="w-full px-4 py-2 rounded-lg bg-white border border-gray-700 focus:border-blue-500 focus:outline-none hover:border-gray-600 transition-colors text-black"
                                             required
                                         />

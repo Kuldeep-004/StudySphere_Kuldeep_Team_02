@@ -11,6 +11,7 @@ const {
 const {
   submitQuizAttempt,
   getQuizAttempts,
+  getQuizLeaderboard,
 } = require("../controllers/QuizAttempt")
 
 // Quiz routes (protected with auth middleware)
@@ -22,5 +23,6 @@ router.put("/update", auth, isInstructor, updateQuiz)
 // Quiz attempt routes (protected with auth middleware)
 router.post("/attempt/submit", auth, submitQuizAttempt)
 router.get("/attempts/:quizId", auth, getQuizAttempts)
+router.get("/leaderboard/:quizId", auth, getQuizLeaderboard)
 
 module.exports = router

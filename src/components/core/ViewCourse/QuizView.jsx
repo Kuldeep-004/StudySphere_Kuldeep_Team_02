@@ -3,7 +3,10 @@ import { toast } from "react-hot-toast"
 import { useSelector } from "react-redux"
 import { submitQuizAttempt, getQuizAttempts } from "../../../services/operations/quizAPI"
 import { HiCheckCircle, HiXCircle, HiPencil } from "react-icons/hi"
+import { FaTrophy } from "react-icons/fa"
 import QuizEditModal from "./QuizEditModal"
+import { apiConnector } from "../../../services/apiconnector"
+import { quizEndpoints } from "../../../services/apis"
 
 export default function QuizView({ quiz, onClose }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -13,6 +16,8 @@ export default function QuizView({ quiz, onClose }) {
   const [previousAttempts, setPreviousAttempts] = useState([])
   const [loading, setLoading] = useState(true)
   const [showEditModal, setShowEditModal] = useState(false)
+  const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [leaderboardData, setLeaderboardData] = useState([])
   const { token } = useSelector((state) => state.auth)
   const { user } = useSelector((state) => state.profile)
 
@@ -46,6 +51,35 @@ export default function QuizView({ quiz, onClose }) {
 
     fetchPreviousAttempts()
   }, [quiz?._id, token])
+
+  const fetchLeaderboard = async () => {
+    try {
+      const response = await apiConnector(
+        "GET",
+        `${quizEndpoints.GET_QUIZ_LEADERBOARD_API}/${quiz._id}`,
+        null,
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      )
+
+      if (response.data.success) {
+        setLeaderboardData(response.data.leaderboard)
+      } else {
+        toast.error("Failed to fetch leaderboard")
+      }
+    } catch (error) {
+      console.error("Error fetching leaderboard:", error)
+      toast.error("Failed to fetch leaderboard")
+    }
+  }
+
+  const toggleLeaderboard = async () => {
+    if (!showLeaderboard) {
+      await fetchLeaderboard()
+    }
+    setShowLeaderboard(!showLeaderboard)
+  }
 
   // Add error handling for undefined quiz data
   if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
@@ -139,8 +173,51 @@ export default function QuizView({ quiz, onClose }) {
   if (showResults) {
     return (
       <div className="p-6 bg-richblack-800 rounded-lg">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-richblack-5">Quiz Results</h2>
+          <button
+            onClick={toggleLeaderboard}
+            className="flex items-center gap-2 bg-yellow-50 text-richblack-900 px-4 py-2 rounded-md font-semibold hover:bg-yellow-100 transition-all duration-200"
+          >
+            <FaTrophy className="text-lg" />
+            {showLeaderboard ? "Hide Leaderboard" : "Show Leaderboard"}
+          </button>
+        </div>
+
+        {showLeaderboard && (
+          <div className="mb-6 p-4 bg-richblack-700 rounded-lg">
+            <h3 className="text-xl font-semibold text-richblack-5 mb-4">Leaderboard</h3>
+            <div className="space-y-3">
+              {leaderboardData.map((entry, index) => (
+                <div
+                  key={entry.user._id}
+                  className="flex items-center justify-between p-3 bg-richblack-600 rounded-lg"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-yellow-50 font-semibold">#{index + 1}</span>
+                    <div className="flex items-center gap-2">
+                      {entry.user.image && (
+                        <img
+                          src={entry.user.image}
+                          alt={`${entry.user.firstName}'s profile`}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      )}
+                      <span className="text-richblack-50">
+                        {entry.user.firstName} {entry.user.lastName}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-richblack-50">
+                    {entry.score}/{entry.totalQuestions} ({entry.percentage}%)
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-between items-center mb-4">
           {isQuizCreator && (
             <button
               onClick={handleEditQuiz}

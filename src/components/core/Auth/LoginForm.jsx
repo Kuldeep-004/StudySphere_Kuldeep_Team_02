@@ -7,7 +7,7 @@ import { login } from "../../../services/operations/authAPI"
 
 function LoginForm() {
   const navigate = useNavigate()
-  const dispatch = useDispatch() 
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,7 +15,7 @@ function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const { email, password } = formData  
+  const { email, password } = formData
 
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
@@ -30,31 +30,26 @@ function LoginForm() {
   }
 
   return (
-    <form
-      onSubmit={handleOnSubmit}
-      className="mt-6 flex w-full flex-col gap-y-4"
-    >
-      <label className="w-full">
-        <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
-          Email Address <sup className="text-pink-200">*</sup>
-        </p>
+    <form onSubmit={handleOnSubmit} className="mt-6 space-y-6">
+      <div>
+        <label className="text-sm text-[#8f9095] mb-1 block">
+          Email <sup className="text-pink-200">*</sup>
+        </label>
         <input
           required
-          type="text"
+          type="email"
           name="email"
           value={email}
           onChange={handleOnChange}
           placeholder="Enter email address"
-          style={{
-            boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-          }}
-          className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
+          className="w-full bg-[#242424] text-white px-3 py-2 rounded-lg border border-[#2a2a2a] focus:outline-none focus:border-[#4b9cff] placeholder:text-[#8f9095]"
         />
-      </label>
-      <label className="relative">
-        <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+      </div>
+
+      <div className="relative">
+        <label className="text-sm text-[#8f9095] mb-1 block">
           Password <sup className="text-pink-200">*</sup>
-        </p>
+        </label>
         <input
           required
           type={showPassword ? "text" : "password"}
@@ -62,30 +57,26 @@ function LoginForm() {
           value={password}
           onChange={handleOnChange}
           placeholder="Enter Password"
-          style={{
-            boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-          }}
-          className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
+          className="w-full bg-[#242424] text-white px-3 py-2 rounded-lg border border-[#2a2a2a] focus:outline-none focus:border-[#4b9cff] placeholder:text-[#8f9095]"
         />
         <span
           onClick={() => setShowPassword((prev) => !prev)}
-          className="absolute right-3 top-[38px] z-[10] cursor-pointer"
+          className="absolute right-3 top-[34px] cursor-pointer text-[#8f9095]"
         >
-          {showPassword ? (
-            <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
-          ) : (
-            <AiOutlineEye fontSize={24} fill="#AFB2BF" />
-          )}
+          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
         </span>
-        <Link to="/forgot-password">
-          <p className="mt-1 ml-auto max-w-max text-xs text-blue-100">
-            Forgot Password
-          </p>
-        </Link>
-      </label>
+      </div>
+
+      <Link
+        to="/forgot-password"
+        className="block text-right text-[#4b9cff] hover:text-blue-400 text-sm font-medium"
+      >
+        Forgot Password?
+      </Link>
+
       <button
         type="submit"
-        className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
+        className="w-full bg-black text-white py-2.5 px-4 rounded-lg font-medium hover:bg-grey transition-colors"
       >
         Sign In
       </button>

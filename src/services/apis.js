@@ -14,7 +14,6 @@ export const profileEndpoints = {
   GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
   GET_USER_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourses",
   GET_INSTRUCTOR_DATA_API: BASE_URL + "/profile/instructorDashboard",
-  GET_COIN_LEADERBOARD_API: BASE_URL + "/profile/getCoinLeaderboard",
 }
 
 // STUDENTS ENDPOINTS
@@ -81,4 +80,5 @@ export const quizEndpoints = {
   DELETE_QUIZ_API: BASE_URL + "/quiz/delete",
   SUBMIT_QUIZ_ATTEMPT_API: BASE_URL + "/quiz/attempt/submit",
   GET_QUIZ_ATTEMPTS_API: BASE_URL + "/quiz/attempts",
+  GET_QUIZ_LEADERBOARD_API: BASE_URL + "/quiz/leaderboard",
 }

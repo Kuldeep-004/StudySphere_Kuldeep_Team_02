@@ -195,7 +195,7 @@ const Project = () => {
     }
 
     return (
-        <main className='h-[1020px] w-screen flex'>
+        <main className='h-[800px] w-screen flex mt-12'>
             <section className="left relative flex flex-col h-[1020px ] min-w-96 bg-slate-300">
                 <header className='flex justify-between items-center p-2 px-4 w-full bg-slate-100 absolute z-10 top-0'>
                     <button className='flex gap-2' onClick={() => setIsModalOpen(true)}>
@@ -212,7 +212,7 @@ const Project = () => {
                         className="message-box p-1 flex-grow flex flex-col gap-1 overflow-auto max-h-full scrollbar-hide">
                         {messages.map((msg, index) => (
                             <div key={index} className={`${msg.sender._id === 'ai' ? 'max-w-80' : 'max-w-52'} ${msg.sender._id == user._id.toString() && 'ml-auto'}  message flex flex-col p-2 bg-slate-50 w-fit rounded-md`}>
-                                <small className='opacity-65 text-xs'>{msg.sender.email}</small>
+                                <small className='opacity-65 text-xs'>{msg.sender._id === 'ai' ? 'AI Assistant' : msg.sender.firstName}</small>
                                 <div className='text-[15px]'>
                                     {msg.sender._id === 'ai' ?
                                         WriteAiMessage(msg.message)

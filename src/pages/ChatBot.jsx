@@ -34,7 +34,7 @@ const Home = () => {
   },[]);
  
   return (  
-    <main className='p-4 flex flex-wrap gap-3 bg-white'>
+    <main className='p-4 flex flex-wrap gap-3 mt-16 bg-white'>
 
       <div className=''>
         <button onClick={()=>setIsModalOpen(true)} className='p-4 h-full justify-center items-center text-lg font-medium flex gap-3 border border-slate-300 rounded-md'>
